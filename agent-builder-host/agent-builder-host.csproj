@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>agent_builder_host</RootNamespace>
+    <SpaRoot>apps\ai-agent-builder\es6\</SpaRoot>
+  </PropertyGroup>
+
+  <!-- NPM Build Integration -->
+  <Target Name="NpmInstall" BeforeTargets="Build" Condition="!Exists('$(SpaRoot)node_modules')">
+    <Message Text="Running npm install..." Importance="high" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="NpmBuild" BeforeTargets="Build" DependsOnTargets="NpmInstall">
+    <Message Text="Building ES6 package..." Importance="high" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+  </Target>
+
+  <Target Name="CopyDistToWwwroot" AfterTargets="NpmBuild">
+    <Message Text="Copying dist to wwwroot..." Importance="high" />
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DistFiles)" DestinationFolder="wwwroot\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

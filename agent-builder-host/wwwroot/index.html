@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent AI Builder</title>
+    <!-- Placeholder for JointJS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.css" />
+    <style>
+        body { margin: 0; padding: 0; font-family: sans-serif; }
+        #app { width: 100vw; height: 100vh; display: flex; }
+        #paper-container { flex: 1; background: #f0f0f0; }
+        #stencil-container { width: 250px; background: #fff; border-right: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="stencil-container">
+            <!-- Stencil will be rendered here -->
+            <div style="padding: 20px;">
+                <h3>Agent Builder</h3>
+                <p>Drag & Drop agents here</p>
+                <button id="save-btn">Save Workflow</button>
+            </div>
+        </div>
+        <div id="paper-container"></div>
+    </div>
+
+    <!-- ES6 Module Entry Point -->
+    <script type="module">
+        import config from './js/config.js';
+        
+        // This is where you would import your actual JointJS + Agent Builder code
+        // import { App } from './js/app.js';
+
+        console.log('Agent Builder Host Loaded');
+        console.log('Connecting to API at:', config.apiBaseUrl);
+
+        // Example: Simple check to see if API is reachable
+        async function checkApi() {
+            try {
+                const response = await fetch(config.apiBaseUrl);
+                console.log('API Status:', response.status);
+            } catch (error) {
+                console.error('API Connection Failed:', error);
+                console.warn('Ensure the WorkflowEngine API is running on port 5031 and CORS is enabled.');
+            }
+        }
+
+        document.getElementById('save-btn').addEventListener('click', () => {
+            console.log('Save clicked - Integration point for saving graph JSON to API');
+            // Logic to serialize graph and POST to config.apiBaseUrl
+        });
+
+        checkApi();
+    </script>
+</body>
+</html>

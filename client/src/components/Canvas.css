@@ -1,0 +1,16 @@
+.canvas-container {
+    flex: 1;
+    overflow: auto;
+    background: #fafafa;
+    position: relative;
+}
+
+.workflow-canvas {
+    display: block;
+    cursor: crosshair;
+    background: #fff;
+}
+
+.workflow-canvas:active {
+    cursor: grabbing;
+}

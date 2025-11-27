@@ -1,0 +1,43 @@
+.workflow-builder-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.stencil-sidebar {
+    width: 200px;
+    background: #fff;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stencil-item {
+    padding: 10px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: grab;
+    text-align: center;
+}
+
+.stencil-item:active {
+    cursor: grabbing;
+}
+
+.stencil-item.agent {
+    border-left: 4px solid #4A90E2;
+}
+
+.stencil-item.tool {
+    border-left: 4px solid #F5A623;
+}
+
+.paper-container {
+    flex: 1;
+    overflow: hidden;
+    background: #f5f5f5;
+    position: relative;
+}

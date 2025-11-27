@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = "AI Agent Builder";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #app {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #toolbar-container {
+            flex-shrink: 0;
+        }
+        #main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        #stencil-container {
+            width: 250px;
+            background: #fff;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+        }
+        #paper-container {
+            flex: 1;
+            background: #f5f5f5;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="toolbar-container"></div>
+        <div id="main-content">
+            <div id="stencil-container"></div>
+            <div id="paper-container"></div>
+        </div>
+    </div>
+
+    <!-- Configuration from server -->
+    <script>
+        window.APP_CONFIG = {
+            apiBaseUrl: 'http://localhost:5031/api/workflow'
+        };
+    </script>
+
+    <!-- Load the bundled application -->
+    <script src="~/bundle.js"></script>
+</body>
+</html>
