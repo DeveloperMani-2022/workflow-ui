@@ -6,7 +6,7 @@ namespace WorkflowEngine.Data;
 /// <summary>
 /// Repository for audit log operations using ADO.NET
 /// </summary>
-public class AuditLogRepository
+public class AuditLogRepository : IAuditLogRepository
 {
     private readonly SqlConnectionFactory _connectionFactory;
     private readonly ILogger<AuditLogRepository> _logger;

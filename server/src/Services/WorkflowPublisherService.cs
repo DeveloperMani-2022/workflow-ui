@@ -6,16 +6,16 @@ namespace WorkflowEngine.Services;
 /// <summary>
 /// Service for publishing and managing workflow versions
 /// </summary>
-public class WorkflowPublisherService
+public class WorkflowPublisherService : IWorkflowPublisherService
 {
-    private readonly WorkflowRepository _workflowRepository;
-    private readonly WorkflowVersionRepository _versionRepository;
-    private readonly AuditLogRepository _auditLogRepository;
+    private readonly IWorkflowRepository _workflowRepository;
+    private readonly IWorkflowVersionRepository _versionRepository;
+    private readonly IAuditLogRepository _auditLogRepository;
     
     public WorkflowPublisherService(
-        WorkflowRepository workflowRepository,
-        WorkflowVersionRepository versionRepository,
-        AuditLogRepository auditLogRepository)
+        IWorkflowRepository workflowRepository,
+        IWorkflowVersionRepository versionRepository,
+        IAuditLogRepository auditLogRepository)
     {
         _workflowRepository = workflowRepository;
         _versionRepository = versionRepository;

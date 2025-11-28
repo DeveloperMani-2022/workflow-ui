@@ -10,17 +10,17 @@ namespace WorkflowEngine.Controllers;
 [Route("api/[controller]")]
 public class WorkflowController : ControllerBase
 {
-    private readonly WorkflowRepository _workflowRepository;
-    private readonly WorkflowVersionRepository _versionRepository;
-    private readonly AuditLogRepository _auditLogRepository;
-    private readonly WorkflowPublisherService _publisherService;
+    private readonly IWorkflowRepository _workflowRepository;
+    private readonly IWorkflowVersionRepository _versionRepository;
+    private readonly IAuditLogRepository _auditLogRepository;
+    private readonly IWorkflowPublisherService _publisherService;
     private readonly ILogger<WorkflowController> _logger;
     
     public WorkflowController(
-        WorkflowRepository workflowRepository,
-        WorkflowVersionRepository versionRepository,
-        AuditLogRepository auditLogRepository,
-        WorkflowPublisherService publisherService,
+        IWorkflowRepository workflowRepository,
+        IWorkflowVersionRepository versionRepository,
+        IAuditLogRepository auditLogRepository,
+        IWorkflowPublisherService publisherService,
         ILogger<WorkflowController> logger)
     {
         _workflowRepository = workflowRepository;

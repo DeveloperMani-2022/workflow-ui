@@ -7,7 +7,7 @@ namespace WorkflowEngine.Data;
 /// <summary>
 /// Repository for workflow CRUD operations using ADO.NET
 /// </summary>
-public class WorkflowRepository
+public class WorkflowRepository : IWorkflowRepository
 {
     private readonly SqlConnectionFactory _connectionFactory;
     private readonly ILogger<WorkflowRepository> _logger;

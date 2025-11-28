@@ -18,13 +18,13 @@ builder.Services.AddSingleton<SqlConnectionFactory>();
 // Register Database Initializer
 builder.Services.AddScoped<DatabaseInitializer>();
 
-// Register Repositories
-builder.Services.AddScoped<WorkflowRepository>();
-builder.Services.AddScoped<WorkflowVersionRepository>();
-builder.Services.AddScoped<AuditLogRepository>();
+// Register Repositories with interfaces
+builder.Services.AddScoped<IWorkflowRepository, WorkflowRepository>();
+builder.Services.AddScoped<IWorkflowVersionRepository, WorkflowVersionRepository>();
+builder.Services.AddScoped<IAuditLogRepository, AuditLogRepository>();
 
-// Register services
-builder.Services.AddScoped<WorkflowPublisherService>();
+// Register services with interfaces
+builder.Services.AddScoped<IWorkflowPublisherService, WorkflowPublisherService>();
 
 // Add CORS
 builder.Services.AddCors(options =>

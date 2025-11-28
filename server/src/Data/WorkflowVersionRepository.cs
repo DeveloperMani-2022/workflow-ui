@@ -6,7 +6,7 @@ namespace WorkflowEngine.Data;
 /// <summary>
 /// Repository for workflow version operations using ADO.NET
 /// </summary>
-public class WorkflowVersionRepository
+public class WorkflowVersionRepository : IWorkflowVersionRepository
 {
     private readonly SqlConnectionFactory _connectionFactory;
     private readonly ILogger<WorkflowVersionRepository> _logger;
