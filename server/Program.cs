@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using WorkflowEngine.Data;
-using WorkflowEngine.Models.NodeExecutors;
 using WorkflowEngine.Services;
 using WorkflowEngine.Middleware;
 
@@ -14,37 +12,18 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-// Add DbContext
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    
-    // Use SQL Server if connection string is provided, otherwise use In-Memory for development
-    if (!string.IsNullOrEmpty(connectionString))
-    {
-        options.UseSqlServer(connectionString);
-    }
-    else
-    {
-        options.UseInMemoryDatabase("WorkflowEngineDb");
-    }
-});
+// Register SQL Connection Factory
+builder.Services.AddSingleton<SqlConnectionFactory>();
 
-// Register HttpClient for API call nodes
-builder.Services.AddHttpClient();
+// Register Database Initializer
+builder.Services.AddScoped<DatabaseInitializer>();
 
-// Register node executors
-builder.Services.AddScoped<INodeExecutor, MessageNodeExecutor>();
-builder.Services.AddScoped<INodeExecutor, QuestionNodeExecutor>();
-builder.Services.AddScoped<INodeExecutor, APICallNodeExecutor>();
-builder.Services.AddScoped<INodeExecutor, ConditionNodeExecutor>();
-builder.Services.AddScoped<INodeExecutor, LLMNodeExecutor>();
-builder.Services.AddScoped<INodeExecutor, StateNodeExecutor>();
+// Register Repositories
+builder.Services.AddScoped<WorkflowRepository>();
+builder.Services.AddScoped<WorkflowVersionRepository>();
+builder.Services.AddScoped<AuditLogRepository>();
 
 // Register services
-builder.Services.AddScoped<WorkflowCompilerService>();
-builder.Services.AddScoped<WorkflowValidationService>();
-builder.Services.AddScoped<WorkflowExecutionService>();
 builder.Services.AddScoped<WorkflowPublisherService>();
 
 // Add CORS
@@ -104,18 +83,8 @@ app.MapControllers();
 // Initialize database
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    
-    // For in-memory database, ensure it's created
-    if (dbContext.Database.IsInMemory())
-    {
-        dbContext.Database.EnsureCreated();
-    }
-    else
-    {
-        // For SQL Server, apply migrations
-        dbContext.Database.Migrate();
-    }
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+    await dbInitializer.InitializeAsync();
 }
 
 app.Run();

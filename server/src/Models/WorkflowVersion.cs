@@ -37,9 +37,4 @@ public class WorkflowVersion
     /// Indicates if this is the currently active version
     /// </summary>
     public bool IsActive { get; set; }
-    
-    /// <summary>
-    /// Navigation property to parent workflow
-    /// </summary>
-    public Workflow Workflow { get; set; } = null!;
 }

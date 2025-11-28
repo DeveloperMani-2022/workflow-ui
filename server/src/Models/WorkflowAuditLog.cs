@@ -32,9 +32,4 @@ public class WorkflowAuditLog
     /// Session ID for execution tracking
     /// </summary>
     public string? SessionId { get; set; }
-    
-    /// <summary>
-    /// Navigation property to parent workflow
-    /// </summary>
-    public Workflow Workflow { get; set; } = null!;
 }
